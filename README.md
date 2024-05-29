@@ -15,3 +15,27 @@
 ```
 # ssacli ctrl slot=0 pd all show detail
 ```
+
+# Supondo que já tenha instalado e configurado o zabbix-agent
+## Vamos agora baixar e adicionar os scripts
+```
+# mkdir /etc/zabbix/scripts
+# wget https://raw.githubusercontent.com/joandson19/Monitar-raidhp-com-zabbix/main/check-ssacli.sh -O /etc/zabbix/scripts/check-ssacli.sh
+# wget https://raw.githubusercontent.com/joandson19/Monitar-raidhp-com-zabbix/main/raid.conf -O /etc/zabbix/zabbix_agentd.d/raid.conf
+# chmod +x /etc/zabbix/scripts/check-ssacli.sh
+```
+
+# Instale a sudo caso não possua e adicione o usuário zabbix na sudoers
+```
+# apt install sudo
+# echo "zabbix ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+```
+
+# Reinicie o zabbix
+```
+# service zabbix-agent restart
+```
+
+## Agora baixe a template "HP SmartArray P410i.xml", importe para o zabbix server, adicione o host onde está a raid e adicione a template e aguarde a descoberta.
+
+
