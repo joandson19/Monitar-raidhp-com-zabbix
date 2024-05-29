@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2024-05-29T13:11:07Z</date>
+    <groups>
+        <group>
+            <uuid>25f54bea889241338dc26434a2ff58c0</uuid>
+            <name>SmartArray</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>69be6298b687444a9e499a6352869c14</uuid>
+            <template>HP SmartArray P410i</template>
+            <name>HP SmartArray P410i</name>
+            <description>By Joandson Bezerra</description>
+            <groups>
+                <group>
+                    <name>SmartArray</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>efa288bc22624b3085e6af5ccb8b2489</uuid>
+                    <name>RAID Disk Discovery</name>
+                    <key>raid.discovery</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>bb21c25bc2694c308519f5c929d86295</uuid>
+                            <name>RAID Disk {#DISKID} State</name>
+                            <key>raid.disk.state[{#DISKID}]</key>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>6fc461b15b874cc7acf8e202ae95f255</uuid>
+                                    <expression>last(/HP SmartArray P410i/raid.disk.state[{#DISKID}])&lt;&gt;&quot;OK&quot;</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/HP SmartArray P410i/raid.disk.state[{#DISKID}])=&quot;OK&quot;</recovery_expression>
+                                    <name>RAID Disk {#DISKID} Status Problem</name>
+                                    <priority>DISASTER</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
